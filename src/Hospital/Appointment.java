@@ -1,4 +1,4 @@
-package Hospital;
+packageospital;
 
 public class Appointment {
 
