@@ -1,12 +1,14 @@
 package Hospital;
 
 public class Patient extends Person {
-
     private String disease;
     private String roomNumber;
 
     public Patient(int id, String name, int age, String gender, String disease, String roomNumber) {
-        super(id, name, age, gender); // MUST be first
+        super(id, name, age, gender);
+        if (disease == null || disease.equals("")) throw new IllegalArgumentException("Disease required");
+        if (roomNumber == null || roomNumber.equals("")) throw new IllegalArgumentException("Room required");
+
         this.disease = disease;
         this.roomNumber = roomNumber;
     }
@@ -33,7 +35,14 @@ public class Patient extends Person {
     public String getRoomNumber() { return roomNumber; }
 
     @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Disease: " + disease);
+        System.out.println("Room: " + roomNumber);
+    }
+
+    @Override
     public String toString() {
-        return super.toString() + ", Disease: " + disease + ", Room: " + roomNumber;
+        return super.toString() + " | Disease: " + disease + ", Room: " + roomNumber;
     }
 }
