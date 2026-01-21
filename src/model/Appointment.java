@@ -1,15 +1,17 @@
-package Hospital;
+package model;
 
 public class Appointment {
+
     private Patient patient;
     private Doctor doctor;
     private String date;
     private String time;
 
     public Appointment(Patient patient, Doctor doctor, String date, String time) {
-        if (patient == null || doctor == null) throw new IllegalArgumentException("Patient and doctor required");
-        if (date == null || date.equals("")) throw new IllegalArgumentException("Date required");
-        if (time == null || time.equals("")) throw new IllegalArgumentException("Time required");
+        if (patient == null || doctor == null)
+            throw new IllegalArgumentException("Patient and Doctor are required.");
+        if (date == null || date.isEmpty() || time == null || time.isEmpty())
+            throw new IllegalArgumentException("Date and time are required.");
 
         this.patient = patient;
         this.doctor = doctor;
@@ -18,10 +20,13 @@ public class Appointment {
     }
 
     public void showInfo() {
-        System.out.println("Appointment: " + patient.getName() + " with Dr. " + doctor.getName() + " on " + date + " at " + time);
+        System.out.println("Appointment: " + patient.getName() + " with Dr. " + doctor.getName() +
+                " on " + date + " at " + time);
     }
+
     public void cancelAppointment() {
-        System.out.println("Appointment for " + patient.getName() + " with Dr. " + doctor.getName() + " has been cancelled.");
+        System.out.println("Appointment for " + patient.getName() + " with Dr. " + doctor.getName() +
+                " has been cancelled.");
     }
 
     public void reschedule(String newDate, String newTime) {
@@ -31,7 +36,6 @@ public class Appointment {
     }
 
     public boolean isDoctorAvailable(String checkTime) {
-        // Simple demo: return true if appointment time is different
         return !checkTime.equals(time);
     }
 
@@ -40,6 +44,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Patient: " + patient.getName() + ", Doctor: " + doctor.getName() + ", Date: " + date + ", Time: " + time;
+        return "Appointment: " + patient.getName() + " with Dr. " + doctor.getName() +
+                " on " + date + " at " + time;
     }
 }
