@@ -1,5 +1,5 @@
 package model;
 
-public interface Treatable {
+public interface Treating {
     void treat();
 }

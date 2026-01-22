@@ -1,12 +1,10 @@
-import menu.Menu;          // This tells Main where the interface is
-import menu.MenuHospital;  // This tells Main where the class is
-
-import static java.awt.SystemColor.menu;
-
+import Menu.Menu;
+import Menu.Menu;
+import Menu.MenuManager;
 
 public class Main {
     public static void main(String[] args) {
-        menu menu = new MenuHospital();
+        Menu menu = new MenuManager();
         menu.run();
     }
 }

@@ -1,50 +1,64 @@
 package model;
 
+import exception.InvalidInputException;
+
 public class Appointment {
 
+    private int appointmentId;
     private Patient patient;
     private Doctor doctor;
     private String date;
-    private String time;
 
-    public Appointment(Patient patient, Doctor doctor, String date, String time) {
-        if (patient == null || doctor == null)
-            throw new IllegalArgumentException("Patient and Doctor are required.");
-        if (date == null || date.isEmpty() || time == null || time.isEmpty())
-            throw new IllegalArgumentException("Date and time are required.");
+    public Appointment(int appointmentId, Patient patient, Doctor doctor, String date) {
+        setAppointmentId(appointmentId);
+        setPatient(patient);
+        setDoctor(doctor);
+        setDate(date);
+    }
 
+    public void setAppointmentId(int appointmentId) {
+        if (appointmentId <= 0) {
+            throw new InvalidInputException("Appointment ID must be positive");
+        }
+        this.appointmentId = appointmentId;
+    }
+
+    public void setPatient(Patient patient) {
+        if (patient == null) {
+            throw new InvalidInputException("Patient cannot be null");
+        }
         this.patient = patient;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        if (doctor == null) {
+            throw new InvalidInputException("Doctor cannot be null");
+        }
         this.doctor = doctor;
+    }
+
+    public void setDate(String date) {
+        if (date == null || date.isBlank()) {
+            throw new InvalidInputException("Date cannot be empty");
+        }
         this.date = date;
-        this.time = time;
     }
 
-    public void showInfo() {
-        System.out.println("Appointment: " + patient.getName() + " with Dr. " + doctor.getName() +
-                " on " + date + " at " + time);
+    public void cancel() {
+        date = "Canceled";
     }
 
-    public void cancelAppointment() {
-        System.out.println("Appointment for " + patient.getName() + " with Dr. " + doctor.getName() +
-                " has been cancelled.");
+    public boolean isCanceled() {
+        return "Canceled".equals(date);
     }
-
-    public void reschedule(String newDate, String newTime) {
-        this.date = newDate;
-        this.time = newTime;
-        System.out.println("Appointment rescheduled to " + date + " at " + time);
-    }
-
-    public boolean isDoctorAvailable(String checkTime) {
-        return !checkTime.equals(time);
-    }
-
-    public Patient getPatient() { return patient; }
-    public Doctor getDoctor() { return doctor; }
 
     @Override
     public String toString() {
-        return "Appointment: " + patient.getName() + " with Dr. " + doctor.getName() +
-                " on " + date + " at " + time;
+        return "Appointment{" +
+                "ID=" + appointmentId +
+                ", Patient=" + patient.getName() +
+                ", Doctor=" + doctor.getName() +
+                ", Date='" + date + '\'' +
+                '}';
     }
 }

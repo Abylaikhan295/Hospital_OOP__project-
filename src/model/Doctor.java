@@ -1,18 +1,56 @@
 package model;
 
-public class Doctor extends Person {
-    private String specialization;
+import exception.InvalidInputException;
 
-    public Doctor(int id, String name, int age, String gender, String specialization) {
-        super(id, name, age, gender);
+public class Doctor extends Person implements Treating {
+
+    private String specialization;
+    private int experienceYears;
+
+    public Doctor(int id, String name, int age, String department,
+                  String specialization, int experienceYears) {
+        super(id, name, age, department);
+        setSpecialization(specialization);
+        setExperienceYears(experienceYears);
+    }
+
+    public void setSpecialization(String specialization) {
+        if (specialization == null || specialization.isBlank()) {
+            throw new InvalidInputException("Specialization cannot be empty");
+        }
         this.specialization = specialization;
+    }
+
+    public void setExperienceYears(int experienceYears) {
+        if (experienceYears < 0) {
+            throw new InvalidInputException("Experience cannot be negative");
+        }
+        this.experienceYears = experienceYears;
+    }
+
+    public boolean isExperienced() {
+        return experienceYears >= 10;
+    }
+
+    @Override
+    public void treat() {
+        System.out.println("Doctor " + name + " is treating patients.");
     }
 
     @Override
     public void work() {
-        System.out.println("Dr. " + name + " is treating patients in " + specialization);
+        System.out.println("Doctor " + name + " works in " + specialization);
     }
 
     @Override
-    public String getRole() { return "Doctor"; }
+    public String getRole() {
+        return "Doctor";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                " | Spec: " + specialization +
+                " | Exp: " + experienceYears + " yrs";
+    }
 }
