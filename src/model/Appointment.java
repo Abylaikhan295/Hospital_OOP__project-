@@ -3,7 +3,6 @@ package model;
 import exception.InvalidInputException;
 
 public class Appointment {
-
     private int appointmentId;
     private Patient patient;
     private Doctor doctor;
@@ -22,43 +21,34 @@ public class Appointment {
         }
         this.appointmentId = appointmentId;
     }
-
     public void setPatient(Patient patient) {
         if (patient == null) {
             throw new InvalidInputException("Patient cannot be null");
         }
         this.patient = patient;
     }
-
     public void setDoctor(Doctor doctor) {
         if (doctor == null) {
             throw new InvalidInputException("Doctor cannot be null");
         }
         this.doctor = doctor;
     }
-
     public void setDate(String date) {
-        if (date == null || date.isBlank()) {
+        if (date == null || date.trim().isEmpty()) {
             throw new InvalidInputException("Date cannot be empty");
         }
         this.date = date;
     }
 
     public void cancel() {
-        date = "Canceled";
-    }
-
-    public boolean isCanceled() {
-        return "Canceled".equals(date);
+        this.date = null;
     }
 
     @Override
     public String toString() {
-        return "Appointment{" +
-                "ID=" + appointmentId +
-                ", Patient=" + patient.getName() +
-                ", Doctor=" + doctor.getName() +
-                ", Date='" + date + '\'' +
-                '}';
+        return "Appointment #" + appointmentId +
+                " | Patient: " + patient.getName() +
+                " | Doctor: " + doctor.getName() +
+                " | Date: " + date;
     }
 }

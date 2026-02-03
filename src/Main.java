@@ -1,10 +1,16 @@
-import Menu.Menu;
-import Menu.Menu;
-import Menu.MenuManager;
+import menu.Menu;
+import menu.MenuManager;
 
 public class Main {
     public static void main(String[] args) {
-        Menu menu = new MenuManager();
-        menu.run();
+        Menu menu = new Menu() {
+            public void run() {
+
+            }
+
+            @Override
+            public void displayMenu() {
+            }
+        };
     }
 }
